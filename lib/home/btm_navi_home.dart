@@ -20,27 +20,29 @@ class BtmNaviHome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Column(
-          children: List.generate(
-              controller.list.length,
-                  (index) {
-                var post = controller.list[index]
-                    .map<String, String>((key, value) {
-                  return MapEntry(key.toString(), value.toString());
-                });
-                return PostWidget(
-                  firstname: post['firstName']!,
-                  lastname: post['lastName']!,
-                  phonenumber: post['phoneNumber']!,
-                  uid: post['userId']!,
-                  homepage: post['homepage']!,
-                  callBack: (){
-                    Get.toNamed('/userInfo',parameters: post);
-                  },
+        child: Obx(() =>
+            Column(
+              children: List.generate(
+                  controller.list.length,
+                      (index) {
+                    var post = controller.list[index]
+                        .map<String, String>((key, value) {
+                      return MapEntry(key.toString(), value.toString());
+                    });
+                    return PostWidget(
+                      firstname: post['firstName']!,
+                      lastname: post['lastName']!,
+                      phonenumber: post['phoneNumber']!,
+                      uid: post['userId']!,
+                      homepage: post['homepage']!,
+                      callBack: (){
+                        Get.toNamed('/userInfo',parameters: post);
+                      },
 
-                );
-              }
-          ),
+                    );
+                  }
+              ),
+            )
         )
         );
   }
@@ -79,11 +81,11 @@ class PostWidget extends StatelessWidget {
                 children: [
                   Text(
                     firstname,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     lastname,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12,
                     ),
                   )
