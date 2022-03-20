@@ -9,18 +9,18 @@ class UserInfo extends GetView<TextAnimation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(controller.post!['firstName']!),
+        title: Text(controller.post!['first_name']!),
       ),
       body: Column(
         children: [
-          Text(controller.post!['lastName']!),
+          Text(controller.post!['last_name']!),
           Column(
             children: [
               Text(
-                controller.post!['phoneNumber']!,
+                controller.post!['email']!,
               ),
               Text(
-                controller.post!['homepage']!,
+                controller.post!['address']!,
               ),
             ],
           ),

@@ -22,13 +22,14 @@ class MyApp extends StatelessWidget {
         Get.put(PagesController());
         // Get.put(JsonLoader());
         Get.lazyPut(() => JsonLoader());
+        Get.lazyPut(() => TextAnimation());
       }),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home:  MyHomePage(),
       getPages: [
-        GetPage(name: '/userInfo', page: ()=>UserInfo()),
+        GetPage(name: '/userInfo', page: ()=>const UserInfo()),
       ],
     );
   }

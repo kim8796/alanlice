@@ -20,7 +20,7 @@ class BtmNaviHome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: Obx(() =>
+        child: //Obx(() =>
             Column(
               children: List.generate(
                   controller.list.length,
@@ -30,11 +30,11 @@ class BtmNaviHome extends StatelessWidget{
                       return MapEntry(key.toString(), value.toString());
                     });
                     return PostWidget(
-                      firstname: post['firstName']!,
-                      lastname: post['lastName']!,
-                      phonenumber: post['phoneNumber']!,
-                      uid: post['userId']!,
-                      homepage: post['homepage']!,
+                      first_name: post['first_name']!,
+                      last_name: post['last_name']!,
+                      email: post['email']!,
+                      uid: post['uid']!,
+                      address: post['address']!,
                       callBack: (){
                         Get.toNamed('/userInfo',parameters: post);
                       },
@@ -43,7 +43,7 @@ class BtmNaviHome extends StatelessWidget{
                   }
               ),
             )
-        )
+      //  )
         );
   }
 }
@@ -52,17 +52,17 @@ typedef PostClickFunction = void Function();
 
 class PostWidget extends StatelessWidget {
   final String uid;
-  final String firstname;
-  final String lastname;
-  final String phonenumber;
-  final String homepage;
+  final String first_name;
+  final String last_name;
+  final String email;
+  final String address;
   final PostClickFunction callBack;
 
   const PostWidget({required this.uid,
-    required this.firstname,
-    required this.lastname,
-    required this.phonenumber,
-    required this.homepage,
+    required this.first_name,
+    required this.last_name,
+    required this.email,
+    required this.address,
     required this.callBack});
 
   @override
@@ -80,11 +80,11 @@ class PostWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    firstname,
+                    first_name,
                     style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    lastname,
+                    last_name,
                     style: const TextStyle(
                       fontSize: 12,
                     ),

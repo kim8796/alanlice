@@ -14,15 +14,20 @@ class JsonLoader extends GetxController {
   void _loadJsonFile() async {
     if (Get.context != null) {
       String data = await DefaultAssetBundle.of(Get.context!)
-          .loadString("assets/testjson/testjson.json");
+          .loadString("assets/testjson/csvjson.json");
+      list.value = await json.decode(data).cast<Map<String, dynamic>>().toList();
+      // log(data);
+      // print(data);
 
-      list(json.decode(data).cast<Map<String, dynamic>>().toList());
+      //list(json.decode(data).cast<Map<String, dynamic>>().toList());
 
 
     } else {
       Future.delayed(Duration(milliseconds: 200), _loadJsonFile);
     }
   }
+
+
 
 }
 
