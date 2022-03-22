@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:alanlice/controller/json_loader.dart';
 import 'package:get/get.dart';
+import 'package:equatable/equatable.dart';
 
 class BtmNaviHome extends StatelessWidget{
   // const BtmNaviHome({Key? key}) : super(key: key);

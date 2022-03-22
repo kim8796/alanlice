@@ -10,6 +10,16 @@ void main() {
   runApp(const MyApp());
 }
 
+class InitialBinding implements Bindings {
+  @override
+  void dependencies(){
+    Get.lazyPut(() => JsonLoader());
+    Get.put(PagesController());
+   // Get.lazyPut(() => TextAnimation());
+  }
+}
+
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -18,18 +28,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      initialBinding: BindingsBuilder(() {
-        Get.put(PagesController());
-        // Get.put(JsonLoader());
-        Get.lazyPut(() => JsonLoader());
-        Get.lazyPut(() => TextAnimation());
-      }),
+      initialBinding: InitialBinding(),
+      //  Get.put(TextAnimation());
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home:  MyHomePage(),
       getPages: [
-        GetPage(name: '/userInfo', page: ()=>const UserInfo()),
+        GetPage(name: '/userInfo', page: ()=>const UserInfo(), binding: BindingsBuilder((){
+          Get.put(TextAnimation());
+    })),
       ],
     );
   }
@@ -43,6 +51,11 @@ class MyHomePage extends GetView<PagesController> {
       onWillPop: controller.onWillPop,
       child: Obx(()=>Scaffold(
         appBar: AppBar(
+          leading: controller.isCategoryPageOpen.value
+          ? GestureDetector(
+            onTap: controller.back,
+            child: const Icon(Icons.arrow_back_ios),
+          ) : Container(),
           centerTitle: true,
           title: const Text('alanlice'),
         ),
