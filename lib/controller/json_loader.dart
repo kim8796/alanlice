@@ -54,18 +54,21 @@ class InfiniteScrollController extends GetxController {
   var hasMore = false.obs;
   var isShow = false.obs;
 
-  var offset = 10.obs;
+  var offset = 20.obs;
   var pages = 0.obs;
   var list = <Map<String, dynamic>>[].obs;
   var sList = <Map<String, dynamic>>[].obs;
   @override
   void onInit(){
-
+    _getData();
   }
 
   _getDataMore() async{
 
-    var appendData = List<Map<String,dynamic>>.generate(10, (i) => list[i+(pages.value*offset.value)]);
+    pages.value = pages.value + 1;
+
+
+    var appendData = List<Map<String,dynamic>>.generate(offset.value, (i) => list[i+(pages.value*offset.value)]);
 
     sList.value.addAll(appendData);
 
@@ -86,12 +89,24 @@ class InfiniteScrollController extends GetxController {
       Future.delayed(Duration(milliseconds: 200), _getData);
     }
 
-    var appendData = List<Map<String,dynamic>>.generate(10, (i) => list[i+(pages.value*offset.value)]);
+    var appendData = List<Map<String,dynamic>>.generate(offset.value, (i) => list[i+(pages.value*offset.value)]);
+
 
     sList.value.addAll(appendData);
 
     isLoading.value = false;
 
     hasMore.value =  sList.length < list.length;
+
+  }
+
+  reload() async {
+    pages.value = 0;
+    var isLoading = false.obs;
+    var hasMore = false.obs;
+    var isShow = false.obs;
+    list.clear();
+    sList.clear();
+    _getData();
   }
 }

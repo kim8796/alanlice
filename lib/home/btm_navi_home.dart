@@ -5,8 +5,8 @@ import 'package:equatable/equatable.dart';
 
 class BtmNaviHome extends StatelessWidget{
   // const BtmNaviHome({Key? key}) : super(key: key);
-  final controller = Get.find<JsonLoader>();
-
+ // final controller = Get.find<JsonLoader>();
+  final sController = Get.find<InfiniteScrollController>();
   // List _items = [];
   // Future<void> readJson() async {
   //   final String response = await rootBundle.loadString('testJson/testjson.json');
@@ -21,12 +21,12 @@ class BtmNaviHome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        child: //Obx(() =>
+        child: Obx(() =>
             Column(
               children: List.generate(
-                  controller.list.length,
+                  sController.sList.length,
                       (index) {
-                    var post = controller.list[index]
+                    var post = sController.sList[index]
                         .map<String, String>((key, value) {
                       return MapEntry(key.toString(), value.toString());
                     });
@@ -44,7 +44,7 @@ class BtmNaviHome extends StatelessWidget{
                   }
               ),
             )
-      //  )
+        )
         );
   }
 }

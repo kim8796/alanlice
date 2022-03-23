@@ -6,19 +6,10 @@ import 'package:alanlice/user/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:alanlice/controller/page_controller.dart';
+import 'package:freezed/builder.dart';
 void main() {
   runApp(const MyApp());
 }
-
-class InitialBinding implements Bindings {
-  @override
-  void dependencies(){
-    Get.lazyPut(() => JsonLoader());
-    Get.put(PagesController());
-   // Get.lazyPut(() => TextAnimation());
-  }
-}
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -28,16 +19,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      initialBinding: InitialBinding(),
-      //  Get.put(TextAnimation());
+      initialBinding: BindingsBuilder(() {
+        Get.put(PagesController());
+        // Get.put(JsonLoader());
+      //  Get.lazyPut(() => JsonLoader());
+        Get.put(InfiniteScrollController());
+      }),
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home:  MyHomePage(),
       getPages: [
-        GetPage(name: '/userInfo', page: ()=>const UserInfo(), binding: BindingsBuilder((){
+        GetPage(name: '/userInfo', page: ()=>const UserInfo() , binding: BindingsBuilder((){
           Get.put(TextAnimation());
-    })),
+        })),
       ],
     );
   }
@@ -51,11 +46,6 @@ class MyHomePage extends GetView<PagesController> {
       onWillPop: controller.onWillPop,
       child: Obx(()=>Scaffold(
         appBar: AppBar(
-          leading: controller.isCategoryPageOpen.value
-          ? GestureDetector(
-            onTap: controller.back,
-            child: const Icon(Icons.arrow_back_ios),
-          ) : Container(),
           centerTitle: true,
           title: const Text('alanlice'),
         ),
