@@ -6,7 +6,7 @@ import 'package:alanlice/user/user_info.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:alanlice/controller/page_controller.dart';
-import 'package:freezed/builder.dart';
+//import 'package:freezed/builder.dart';
 void main() {
   runApp(const MyApp());
 }

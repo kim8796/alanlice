@@ -61,6 +61,14 @@ class InfiniteScrollController extends GetxController {
   @override
   void onInit(){
     _getData();
+    this.scrollController.value.addListener(() {
+      if (this.scrollController.value.position.pixels ==
+          this.scrollController.value.position.maxScrollExtent &&
+          this.hasMore.value) {
+
+        _getData();
+      }
+    });
   }
 
   _getDataMore() async{
@@ -86,11 +94,14 @@ class InfiniteScrollController extends GetxController {
       list.value = await json.decode(data).cast<Map<String, dynamic>>().toList();
 
     } else {
-      Future.delayed(Duration(milliseconds: 200), _getData);
+      Future.delayed(Duration(milliseconds: 300), _getData);
     }
 
-    var appendData = List<Map<String,dynamic>>.generate(offset.value, (i) => list[i+(pages.value*offset.value)]);
+    Future.delayed(Duration(milliseconds: 300), _getData);
 
+    var appendData = List<Map<String,dynamic>>.generate(offset.value, (i) => list[i+(pages.value*offset.value)+1]);
+
+    pages.value = pages.value+1;
 
     sList.value.addAll(appendData);
 
